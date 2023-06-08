@@ -1,0 +1,97 @@
+@function content($value, $num) {
+  // $text: 'Hello' + '' + $value;
+  // $text: 8 % 3 + '';
+  // @return $value != 'Hello' or $num == 10;
+
+  @if $num == 10 and $value == 'Hello' {
+    @return 10px;
+  }
+
+  @if $num == 20 {
+    @return 100px;
+  }
+}
+
+@function fontSize() {
+  @return 20;
+}
+
+@function spacing($num) {
+  @return #{$num * 4}px;
+}
+
+@function calcCenter($size) {
+  @return calc(50% - ($size / 2));
+}
+
+@function getIcon($name) {
+  $icon: '';
+
+  @if ($name == 'burger') {
+    $icon: '/icon/header/berger.svg';
+  }
+
+  @if ($name == 'user') {
+    $icon: '/icon/dashboard/user.svg';
+  }
+
+  @return url(#{$icon});
+}
+
+@mixin button($type: null, $size: null) {
+  display: inline-block;
+  width: fit-content;
+  padding: spacing(3) spacing(4);
+  border-radius: 8px;
+  text-align: center;
+
+  @if ($type == primary) {
+    background-color: aqua;
+  } @else if $type == secondary {
+    background-color: rgb(255, 208, 0);
+  } @else {
+    background-color: rebeccapurple;
+    color: white;
+  }
+
+  @if $size == 'big' {
+    padding: spacing(4) spacing(6);
+  } @else if $size == 'small' {
+    padding: spacing(1) spacing(3);
+  } @else {
+    padding: spacing(1) spacing(3);
+  }
+
+  @if $type == $size {
+    @error 'Type is not  Size';
+  }
+
+  // background-color: red;
+  // padding: spacing(2) spacing(4);
+}
+
+.wrapper::after {
+  content: 'World';
+
+  background-image: getIcon('user');
+  font-size: #{fontSize()}px;
+  position: absolute;
+  height: 40px;
+  min-width: 40px;
+  top: calcCenter(40px);
+  background: #ddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: spacing(4);
+}
+
+.wrapper {
+  display: grid;
+  gap: spacing(3);
+  padding: spacing(4);
+}
+
+.button {
+  @include button('secondary', 'big');
+}

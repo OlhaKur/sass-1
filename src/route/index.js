@@ -103,6 +103,15 @@ router.get('/use', function (req, res) {
 })
 
 // ================================================================
+router.get('/func', function (req, res) {
+  // res.render генерує нам HTML сторінку
+
+  // ↙️ cюди вводимо назву файлу з сontainer
+  res.render('func', {
+    style: 'func',
+  })
+  // ↑↑ сюди вводимо JSON дані
+})
 
 // Підключаємо роутер до бек-енду
 module.exports = router
